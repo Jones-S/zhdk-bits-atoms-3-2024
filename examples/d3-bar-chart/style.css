@@ -1,0 +1,16 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+#container {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+h1 {
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+  margin-left: 20px;
+}
