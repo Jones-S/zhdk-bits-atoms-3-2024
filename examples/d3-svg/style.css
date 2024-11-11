@@ -1,0 +1,9 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+svg {
+  width: 100vw;
+  height: auto;
+}
