@@ -1,0 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: monospace;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+}
+
+.hammer-playground {
+  width: 95%;
+  height: 95%;
+  margin: 20px auto;
+  background-color: rgb(224, 241, 235);
+  padding: 20px;
+}
