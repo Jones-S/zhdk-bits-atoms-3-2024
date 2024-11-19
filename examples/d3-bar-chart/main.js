@@ -4,6 +4,17 @@ console.log("Displaying simple bar chart");
 
 // Declare the chart dimensions and margins.
 const width = 1250;
+// const width = window.innerWidth;
+
+// window.addEventListener("resize", () => {
+//   width = window.innerWidth;
+//   console.log("width: ", width);
+// })
+
+// button.addEventListener("click", () => {
+
+// })
+
 const height = 600;
 const marginTop = 20;
 const marginRight = 20;
@@ -28,6 +39,7 @@ async function fetchData() {
 }
 
 function filterData(data) {
+  // another way to write the function?
   return data.filter(
     (item) => item.thg === "CO2" && item.untergruppe === "Abfallverbrennung"
   );
@@ -39,12 +51,17 @@ function drawChart(data) {
   // Create the SVG container.
   const svg = d3.create("svg").attr("width", width).attr("height", height);
 
+  console.log("svg: ", svg);
+
   const maxEmission = d3.max(data, (d) => d.emission);
 
+  console.log("maxEmission: ", maxEmission);
+
   // Declare the x (horizontal position) scale.
+
   const x = d3
     .scaleBand()
-    .domain(d3.range(1990, 2026))
+    .domain(d3.range(1990, 2025))
     .range([marginLeft, width - marginRight])
     .padding(0.2);
 
@@ -57,7 +74,7 @@ function drawChart(data) {
   // Add the x-axis.
   svg
     .append("g")
-    .attr("transform", `translate(0,${height - marginBottom})`)
+    .attr("transform", `translate(0, ${height - marginBottom})`)
     .call(d3.axisBottom(x));
 
   // Add the y-axis.
@@ -73,11 +90,17 @@ function drawChart(data) {
     .data(data)
     .join("rect")
     .attr("fill", "blue")
-    .attr("x", (d) => x(d.jahr))
+    .attr("x", function (d) {
+      return x(d.jahr);
+    })
     .attr("y", (d) => y(d.emission))
     .attr("height", (d) => height - y(d.emission) - marginBottom)
-    .attr("data-year", (d) => d.jahr)
+    // .attr("data-year", (d, i) => `${d.jahr} - ${i}`)
+    .attr("data-year", function (dataItem, i) {
+      return `${dataItem.jahr} - ${i}`;
+    })
     .attr("width", x.bandwidth());
+  // .attr("width", 1200 / data.length - 10);
 
   // Add y-axis label
   svg
@@ -93,7 +116,11 @@ function drawChart(data) {
 
   // Append the SVG element.
   const container = document.getElementById("container");
+
+  console.log("svg.node(): ", svg.node());
   container.append(svg.node());
 }
 
 fetchData();
+
+// use case for translate?
