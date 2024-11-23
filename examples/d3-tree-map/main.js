@@ -11,6 +11,21 @@ const marginRight = 20;
 const marginBottom = 30;
 const marginLeft = 40;
 
+// get all the names for the items without children in a flat array
+function getNames(node) {
+  let names = [];
+  if (node.children) {
+    node.children.forEach((child) => {
+      names = names.concat(getNames(child));
+    });
+  } else {
+    if (node.name) {
+      names.push(node.name);
+    }
+  }
+  return names;
+}
+
 async function fetchData() {
   const url = "./data.json"; // data from https://opendata.swiss/en/dataset/treibhausgasemissionen-im-kanton-zurich
   let response = await fetch(url);
@@ -21,6 +36,7 @@ async function fetchData() {
     let json = await response.json();
     console.log("Finally received the response:");
     console.log("Response: ", json);
+
     drawChart(json);
   } else {
     alert("HTTP-Error: " + response.status);
@@ -44,10 +60,22 @@ Id.prototype.toString = function () {
 };
 
 function drawChart(data) {
+  const tileNames = getNames(data);
+  console.log("tileNames: ", tileNames);
+
   // Specify the color scale.
   const color = d3.scaleOrdinal(
-    data.children.map((d) => d.name), // ['Habitable Land', 'Glaciers', 'Barren Land']
-    ["#1f77b4", "#ff7f0e", "#2ca02c"]
+    tileNames, // names:  ["Livestock","Crops (excl. Feeds)","Forests","Shrub","Urban","Freshwater","Glaciers","Barren land"]
+    [
+      "#ABB166",
+      "#91BF61",
+      "#34A60B",
+      "#FFE187",
+      "#F34343",
+      "#657AFF",
+      "#BEE8FF",
+      "#C3BFB0",
+    ]
 
     // or use a predefined color scheme:
     // d3.schemeTableau10
@@ -61,7 +89,7 @@ function drawChart(data) {
     .tile(d3.treemapSquarify) // e.g., d3.treemapSquarify
     .size([width, height])
     .padding(1)
-    .round(true)(
+    .round(false)(
     d3
       .hierarchy(data)
       .sum((d) => d.value)
@@ -98,11 +126,7 @@ function drawChart(data) {
     .append("rect")
     .attr("id", (d) => (d.leafUid = uid("leaf")).id)
     .attr("fill", (d) => {
-      if (d.depth > 2) {
-        return color(d.parent.name);
-      } else {
-        return color(d.data.name);
-      }
+      return color(d.data.name);
     })
     .attr("fill-opacity", 0.6)
     .attr("width", (d) => d.x1 - d.x0)

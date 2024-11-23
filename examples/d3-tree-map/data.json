@@ -6,10 +6,17 @@
         {
           "name": "Habitable land",
           "children": [
-            { "name": "AgglomerativeCluster", "value": 50 },
-            { "name": "CommunityStructure", "value": 10 },
-            { "name": "HierarchicalCluster", "value": 5 },
-            { "name": "MergeEdge", "value": 6 }
+            {
+              "name": "Agriculture",
+              "children": [
+                { "name": "Livestock", "value": 77 },
+                { "name": "Crops (excl. Feeds)", "value": 23 }
+              ]
+            },
+            { "name": "Forests", "value": 38 },
+            { "name": "Shrub", "value": 14 },
+            { "name": "Urban", "value": 1 },
+            { "name": "Freshwater", "value": 1 }
           ]
         },
         {
