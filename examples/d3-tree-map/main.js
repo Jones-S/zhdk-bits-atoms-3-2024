@@ -153,24 +153,9 @@ function drawChart(data) {
     .attr("clip-path", (d) => d.clipUid)
     .selectAll("tspan")
     .data((d) => {
-      const fractions = [];
-      console.log("dparent: ", d.parent);
-      if (d.parent?.parent?.data?.fraction) {
-        fractions.push(d.parent.parent.data.fraction / 100);
-      }
-
-      if (d.parent.data.fraction) {
-        fractions.push(d.parent.data.fraction / 100);
-      }
-
-      fractions.push(d.value / 100);
-
-      console.log("fractions: ", fractions);
-      const percentage =
-        fractions.reduce((acc, fraction) => acc * fraction, 1) * 100;
       return d.data.name
         .split(/(?=[A-Z][a-z])|\s+/g)
-        .concat(`${percentage.toFixed(2)}%`);
+        .concat(`${d.data.value.toFixed(2)}%`);
     })
     .join("tspan")
     .attr("x", 3)

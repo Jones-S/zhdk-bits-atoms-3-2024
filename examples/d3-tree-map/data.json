@@ -5,20 +5,18 @@
       "children": [
         {
           "name": "Habitable land",
-          "fraction": 71,
           "children": [
             {
               "name": "Agriculture",
-              "fraction": 46,
               "children": [
-                { "name": "Livestock", "value": 77 },
-                { "name": "Crops (excl. Feeds)", "value": 23 }
+                { "name": "Livestock", "value": 25.15 },
+                { "name": "Crops (excl. Feeds)", "value": 7.51 }
               ]
             },
-            { "name": "Forests", "value": 38 },
-            { "name": "Shrub", "value": 14 },
-            { "name": "Urban", "value": 1 },
-            { "name": "Freshwater", "value": 1 }
+            { "name": "Forests", "value": 26.98 },
+            { "name": "Shrub", "value": 9.94 },
+            { "name": "Urban", "value": 0.71 },
+            { "name": "Freshwater", "value": 0.71 }
           ]
         },
         {
