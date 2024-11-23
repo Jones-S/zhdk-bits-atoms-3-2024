@@ -31,8 +31,8 @@ async function fetchData() {
     let json = await response.json();
     console.log("Finally received the response:");
     console.log("Response: ", json);
-    const filteredData = filterData(json);
-    drawChart(filteredData);
+    // const filteredData = filterData(json);
+    drawChart(json);
   } else {
     alert("HTTP-Error: " + response.status);
   }

@@ -1,0 +1,26 @@
+{
+  "children": [
+    {
+      "name": "Land surface",
+      "children": [
+        {
+          "name": "Habitable land",
+          "children": [
+            { "name": "AgglomerativeCluster", "value": 50 },
+            { "name": "CommunityStructure", "value": 10 },
+            { "name": "HierarchicalCluster", "value": 5 },
+            { "name": "MergeEdge", "value": 6 }
+          ]
+        },
+        {
+          "name": "Glaciers",
+          "value": 10
+        },
+        {
+          "name": "Barren land",
+          "value": 19
+        }
+      ]
+    }
+  ]
+}
