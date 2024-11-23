@@ -88,7 +88,7 @@ function drawChart(data) {
     .treemap()
     .tile(d3.treemapSquarify) // e.g., d3.treemapSquarify
     .size([width, height])
-    .padding(1)
+    .padding(0)
     .round(false)(
     d3
       .hierarchy(data)
@@ -128,6 +128,14 @@ function drawChart(data) {
     .attr("fill", (d) => {
       return color(d.data.name);
     })
+    .attr("stroke-width", 1)
+    .attr("stroke", (d) => {
+      if (d.depth >= 3) {
+        return "#5F8E79";
+      } else {
+        return "#5A3D3D";
+      }
+    })
     .attr("fill-opacity", 0.6)
     .attr("width", (d) => d.x1 - d.x0)
     .attr("height", (d) => d.y1 - d.y0);
@@ -144,14 +152,31 @@ function drawChart(data) {
     .append("text")
     .attr("clip-path", (d) => d.clipUid)
     .selectAll("tspan")
-    .data((d) =>
-      d.data.name.split(/(?=[A-Z][a-z])|\s+/g).concat(format(d.value))
-    )
+    .data((d) => {
+      const fractions = [];
+      console.log("dparent: ", d.parent);
+      if (d.parent?.parent?.data?.fraction) {
+        fractions.push(d.parent.parent.data.fraction / 100);
+      }
+
+      if (d.parent.data.fraction) {
+        fractions.push(d.parent.data.fraction / 100);
+      }
+
+      fractions.push(d.value / 100);
+
+      console.log("fractions: ", fractions);
+      const percentage =
+        fractions.reduce((acc, fraction) => acc * fraction, 1) * 100;
+      return d.data.name
+        .split(/(?=[A-Z][a-z])|\s+/g)
+        .concat(`${percentage.toFixed(2)}%`);
+    })
     .join("tspan")
     .attr("x", 3)
     .attr(
       "y",
-      (d, i, nodes) => `${(i === nodes.length - 1) * 0.3 + 1.1 + i * 0.9}em`
+      (d, i, nodes) => `${(i === nodes.length - 1) * 0.3 + 1.1 + i * 1.1}em`
     )
     .attr("fill-opacity", (d, i, nodes) =>
       i === nodes.length - 1 ? 0.7 : null

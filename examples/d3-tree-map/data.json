@@ -5,9 +5,11 @@
       "children": [
         {
           "name": "Habitable land",
+          "fraction": 71,
           "children": [
             {
               "name": "Agriculture",
+              "fraction": 46,
               "children": [
                 { "name": "Livestock", "value": 77 },
                 { "name": "Crops (excl. Feeds)", "value": 23 }
