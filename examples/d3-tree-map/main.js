@@ -138,7 +138,20 @@ function drawChart(data) {
     })
     .attr("fill-opacity", 0.6)
     .attr("width", (d) => d.x1 - d.x0)
-    .attr("height", (d) => d.y1 - d.y0);
+    .attr("height", (d) => d.y1 - d.y0)
+    .on("mouseover", (event, d) => {
+      console.log("d: ", d);
+      tooltip.style("visibility", "visible");
+    })
+    .on("mousemove", (event, d) => {
+      tooltip
+        .style("top", event.pageY - 10 + "px")
+        .style("left", event.pageX + 10 + "px")
+        .html(`${d.data.name}:<br>${d.data.area}`);
+    })
+    .on("mouseout", () => {
+      tooltip.style("visibility", "hidden");
+    });
 
   // Append a clipPath to ensure text does not overflow.
   leaf
@@ -168,12 +181,10 @@ function drawChart(data) {
     )
     .text((d) => d);
 
-  // return Object.assign(svg.node(), { scales: { color } });
+  let tooltip = d3.select("body").append("div").attr("class", "tooltip");
 
   console.log("svg.node(): ", svg.node());
   container.append(svg.node());
 }
 
 fetchData();
-
-// use case for translate?
