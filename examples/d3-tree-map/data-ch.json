@@ -1,0 +1,40 @@
+{
+  "meta": "This data is based on: https://www.bfs.admin.ch/bfs/en/home/statistiken/raum-umwelt/bodennutzung-bedeckung.assetdetail.30245484.html",
+  "children": [
+    {
+      "name": "Land surface",
+      "children": [
+        {
+          "name": "Habitable land",
+          "children": [
+            {
+              "name": "Agriculture",
+              "children": [
+                {
+                  "name": "Agricultural areas",
+                  "value": 35,
+                  "area": "Information Land Area: km2"
+                }
+              ]
+            },
+            {
+              "name": "Forests",
+              "value": 32,
+              "area": "Information Land Area: km2"
+            },
+            {
+              "name": "Urban",
+              "value": 8,
+              "area": "Information Land Area: km2"
+            }
+          ]
+        },
+        {
+          "name": "Unproductive Land (Glaciers, Barren land etc.)",
+          "value": 25,
+          "area": "Information Land Area: km2"
+        }
+      ]
+    }
+  ]
+}
